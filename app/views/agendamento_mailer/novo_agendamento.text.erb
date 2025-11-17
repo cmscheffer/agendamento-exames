@@ -1,0 +1,15 @@
+Prezado(a) <%= @solicitante.nome %>,
+
+Seu agendamento foi realizado com sucesso!
+
+Detalhes do Agendamento #<%= @agendamento.id %>:
+- Colaborador: <%= @agendamento.nome_colaborador %>
+- Tipo de Consulta: <%= @agendamento.nome_tipo_consulta %>
+- Unidade: <%= @agendamento.unidade.nome_completo %>
+- Data de Preferência: <%= l(@agendamento.data_preferencia, format: :short) %>
+- Cidade: <%= @agendamento.cidade_agendamento %>
+
+Entraremos em contato em breve para confirmar a data e horário exatos.
+
+Atenciosamente,
+Equipe de Exames Ocupacionais

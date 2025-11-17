@@ -1,0 +1,36 @@
+<h1>Confirmação de Agendamento</h1>
+
+<p>Olá <strong><%= @solicitante.nome %></strong>,</p>
+
+<p>Seu agendamento foi realizado com sucesso. Seguem os detalhes:</p>
+
+<h3>Detalhes do Agendamento</h3>
+<ul>
+  <li><strong>Número do Agendamento:</strong> <%= @agendamento.id %></li>
+  <li><strong>Colaborador:</strong> <%= @agendamento.nome_colaborador %></li>
+  <li><strong>Tipo de Consulta:</strong> <%= @agendamento.nome_tipo_consulta %></li>
+  <li><strong>Unidade:</strong> <%= @agendamento.unidade.nome_completo %></li>
+  <li><strong>Data de Preferência:</strong> <%= l(@agendamento.data_preferencia, format: :long) %></li>
+  <li><strong>Cidade do Agendamento:</strong> <%= @agendamento.cidade_agendamento %></li>
+</ul>
+
+<h3>Dados do Colaborador</h3>
+<ul>
+  <li><strong>CPF:</strong> <%= CPF.new(@agendamento.cpf_colaborador).formatted %></li>
+  <li><strong>Função:</strong> <%= @agendamento.funcao %></li>
+  <li><strong>Matrícula:</strong> <%= @agendamento.matricula.presence || 'Não registrada' %></li>
+</ul>
+
+<% if @agendamento.observacoes.present? %>
+  <h3>Observações</h3>
+  <p><%= @agendamento.observacoes %></p>
+<% end %>
+
+<hr>
+
+<p><strong>Importante:</strong> Entraremos em contato em breve para confirmar a data e horário exatos do seu agendamento.</p>
+
+<p>Para dúvidas ou alterações, entre em contato conosco.</p>
+
+<p>Atenciosamente,<br>
+Equipe de Exames Ocupacionais</p>

@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12">
+    <h1>Detalhes do Agendamento</h1>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h5>Agendamento #<%= @agendamento.id %></h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Cidade do Agendamento:</strong> <%= @agendamento.cidade_agendamento %></p>
+            <p><strong>Unidade Responsável:</strong> <%= @agendamento.unidade.nome_completo %></p>
+            <p><strong>CNPJ:</strong> <%= @agendamento.cnpj.razao_social %></p>
+            <p><strong>Data de Preferência:</strong> <%= l(@agendamento.data_preferencia, format: :long) %></p>
+          </div>
+          
+          <div class="col-md-6">
+            <p><strong>Colaborador:</strong> <%= @agendamento.nome_colaborador %></p>
+            <p><strong>CPF:</strong> <%= CPF.new(@agendamento.cpf_colaborador).formatted %></p>
+            <p><strong>Data de Nascimento:</strong> <%= l(@agendamento.data_nascimento, format: :long) %></p>
+            <p><strong>Função:</strong> <%= @agendamento.funcao %></p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Tipo de Consulta:</strong> <%= @agendamento.nome_tipo_consulta %></p>
+            <p><strong>Nº CCU:</strong> <%= @agendamento.n_ccu %></p>
+            <% if @agendamento.matricula.present? %>
+              <p><strong>Matrícula:</strong> <%= @agendamento.matricula %></p>
+            <% else %>
+              <p><strong>Matrícula:</strong> Não foi registrada ainda</p>
+            <% end %>
+          </div>
+          
+          <div class="col-md-6">
+            <% if @agendamento.observacoes.present? %>
+              <p><strong>Observações:</strong></p>
+              <p class="text-muted"><%= simple_format(@agendamento.observacoes) %></p>
+            <% end %>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-12">
+            <p><strong>Criado em:</strong> <%= l(@agendamento.created_at, format: :long) %></p>
+            <p><strong>Atualizado em:</strong> <%= l(@agendamento.updated_at, format: :long) %></p>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <%= link_to 'Editar', edit_solicitante_agendamento_path(@agendamento), class: 'btn btn-warning' %>
+            <%= link_to 'Voltar', solicitante_agendamentos_path, class: 'btn btn-secondary' %>
+            
+            <%= link_to 'Remover', solicitante_agendamento_path(@agendamento),
+                        method: :delete,
+                        data: { confirm: 'Tem certeza que deseja remover este agendamento?' },
+                        class: 'btn btn-danger ms-2' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

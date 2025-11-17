@@ -1,0 +1,59 @@
+pt-BR:
+  activerecord:
+    attributes:
+      user:
+        email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmação da Senha"
+        nome: "Nome"
+        role: "Perfil"
+      solicitante:
+        nome: "Nome"
+        email: "Email"
+        telefone: "Telefone"
+        empresa: "Empresa"
+        cargo: "Cargo"
+      unidade:
+        nome: "Nome"
+        cidade: "Cidade"
+        estado: "Estado"
+        endereco: "Endereço"
+        telefone: "Telefone"
+      cnpj:
+        numero: "Número do CNPJ"
+        razao_social: "Razão Social"
+        descricao: "Descrição"
+        endereco: "Endereço"
+      agendamento:
+        cidade_agendamento: "Cidade do Agendamento"
+        data_preferencia: "Data de Preferência"
+        nome_colaborador: "Nome do Colaborador"
+        data_nascimento: "Data de Nascimento"
+        cpf_colaborador: "CPF do Colaborador"
+        n_ccu: "Nº CCU"
+        funcao: "Função"
+        tipo_consulta: "Tipo de Consulta"
+        outro_tipo: "Especificar Outro Tipo"
+        matricula: "Matrícula"
+        matricula_nao_registrada: "Matrícula Não Registrada"
+        observacoes: "Observações"
+        solicitante: "Solicitante"
+        unidade: "Unidade"
+        cnpj: "CNPJ"
+        tipos:
+          admissional: "Admissional"
+          demissional: "Demissional"
+          periodico: "Periódico"
+          retorno_trabalho: "Retorno ao Trabalho"
+          mudanca_funcao: "Mudança de Função"
+          outro: "Outro"
+  
+  devise:
+    sessions:
+      signed_in: "Login efetuado com sucesso."
+      signed_out: "Logout efetuado com sucesso."
+    failure:
+      invalid: "Email ou senha inválidos."
+      not_found_in_database: "Email ou senha inválidos."
+      timeout: "Sua sessão expirou, por favor faça login novamente."
+      unauthenticated: "Você precisa estar logado para acessar esta página."

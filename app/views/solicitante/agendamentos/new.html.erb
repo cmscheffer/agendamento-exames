@@ -1,0 +1,195 @@
+<div class="row">
+  <div class="col-12">
+    <h1>Novo Agendamento</h1>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-10 offset-md-1">
+    <div class="card">
+      <div class="card-header">
+        <h5>Formulário de Agendamento de Exame Ocupacional</h5>
+      </div>
+      <div class="card-body">
+        <%= form_with(model: [:solicitante, @agendamento], local: true) do |form| %>
+          <% if @agendamento.errors.any? %>
+            <div class="alert alert-danger">
+              <h6>Por favor, corrija os erros abaixo:</h6>
+              <ul>
+                <% @agendamento.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= form.label :cidade_agendamento, 'Cidade do Agendamento *', class: 'form-label' %>
+                <%= form.text_field :cidade_agendamento, class: 'form-control', required: true %>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= form.label :unidade_id, 'Unidade Responsável *', class: 'form-label' %>
+                <%= form.select :unidade_id, 
+                    options_from_collection_for_select(@unidades, :id, :nome_completo),
+                    { prompt: 'Selecione uma unidade' }, 
+                    { class: 'form-select', required: true } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= form.label :cnpj_id, 'CNPJ *', class: 'form-label' %>
+                <%= form.select :cnpj_id,
+                    options_from_collection_for_select(@cnpjs, :id, :razao_social),
+                    { prompt: 'Selecione um CNPJ' },
+                    { class: 'form-select', required: true } %>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= form.label :data_preferencia, 'Data de Preferência para Agendamento *', class: 'form-label' %>
+                <%= form.date_field :data_preferencia, class: 'form-control', required: true, min: Date.current %>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+          <h6 class="text-muted">Dados do Colaborador</h6>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="mb-3">
+                <%= form.label :nome_colaborador, 'Nome Completo do Colaborador *', class: 'form-label' %>
+                <%= form.text_field :nome_colaborador, class: 'form-control', required: true %>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="mb-3">
+                <%= form.label :data_nascimento, 'Data de Nascimento *', class: 'form-label' %>
+                <%= form.date_field :data_nascimento, class: 'form-control', required: true, max: Date.current %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <%= form.label :cpf_colaborador, 'CPF do Colaborador *', class: 'form-label' %>
+                <%= form.text_field :cpf_colaborador, class: 'form-control', required: true, 
+                    placeholder: '000.000.000-00', maxlength: 14 %>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="mb-3">
+                <%= form.label :n_ccu, 'Nº CCU - Cliente *', class: 'form-label' %>
+                <%= form.text_field :n_ccu, class: 'form-control', required: true %>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="mb-3">
+                <%= form.label :funcao, 'Função *', class: 'form-label' %>
+                <%= form.text_field :funcao, class: 'form-control', required: true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3">
+                <%= form.label :tipo_consulta, 'Tipo de Consulta *', class: 'form-label' %>
+                <div class="row">
+                  <% Agendamento.tipo_consultas.each do |key, value| %>
+                    <div class="col-md-4 mb-2">
+                      <div class="form-check">
+                        <%= form.radio_button :tipo_consulta, key, class: 'form-check-input', required: true %>
+                        <%= form.label "tipo_consulta_#{key}", class: 'form-check-label' do %>
+                          <%= I18n.t("activerecord.attributes.agendamento.tipos.#{key}") %>
+                          <% if key == 'outro' %>
+                            <%= form.text_field :outro_tipo, class: 'form-control form-control-sm d-inline-block ms-2', 
+                                style: 'width: 150px;', placeholder: 'Especificar...' %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3">
+                <%= form.label :matricula, 'Matrícula do Colaborador', class: 'form-label' %>
+                <div class="form-check mb-2">
+                  <%= form.check_box :matricula_nao_registrada, class: 'form-check-input', 
+                      id: 'matricula_nao_registrada' %>
+                  <%= form.label :matricula_nao_registrada, 'Não foi registrado ainda', 
+                      class: 'form-check-label', for: 'matricula_nao_registrada' %>
+                </div>
+                <%= form.text_field :matricula, class: 'form-control', 
+                    id: 'matricula_field', placeholder: 'Digite a matrícula' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3">
+                <%= form.label :observacoes, 'Observações', class: 'form-label' %>
+                <%= form.text_area :observacoes, class: 'form-control', rows: 4, 
+                    placeholder: 'Informações adicionais relevantes para o agendamento...' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-center">
+              <%= form.submit 'Enviar Solicitação de Agendamento', class: 'btn btn-primary btn-lg' %>
+              <%= link_to 'Cancelar', solicitante_agendamentos_path, class: 'btn btn-secondary btn-lg ms-2' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const matriculaNaoRegistrada = document.getElementById('matricula_nao_registrada');
+  const matriculaField = document.getElementById('matricula_field');
+  
+  function toggleMatriculaField() {
+    matriculaField.disabled = matriculaNaoRegistrada.checked;
+    if (matriculaNaoRegistrada.checked) {
+      matriculaField.value = '';
+    }
+  }
+  
+  matriculaNaoRegistrada.addEventListener('change', toggleMatriculaField);
+  toggleMatriculaField();
+  
+  // Máscara de CPF
+  matriculaField.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length <= 11) {
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    }
+    e.target.value = value;
+  });
+});
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Agendamento de Exames Ocupacionais</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <%= link_to 'Sistema de Agendamento', root_path, class: 'navbar-brand' %>
+        
+        <% if user_signed_in? %>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <% if current_user.admin? %>
+                <li class="nav-item">
+                  <%= link_to 'Dashboard Admin', admin_dashboard_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Solicitantes', admin_solicitantes_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Unidades', admin_unidades_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'CNPJs', admin_cnpjs_path, class: 'nav-link' %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to 'Meus Agendamentos', solicitante_agendamentos_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Novo Agendamento', new_solicitante_agendamento_path, class: 'nav-link' %>
+                </li>
+              <% end %>
+            </ul>
+            
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                  <%= current_user.nome %>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'Editar Perfil', edit_user_registration_path, class: 'dropdown-item' %></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <% if notice %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <%= notice %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

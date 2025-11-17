@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-12">
+    <h1>Meus Agendamentos</h1>
+    <%= link_to 'Novo Agendamento', new_solicitante_agendamento_path, class: 'btn btn-success float-end' %>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <% if @meus_agendamentos.any? %>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Colaborador</th>
+              <th>Tipo de Consulta</th>
+              <th>Data Preferência</th>
+              <th>Status</th>
+              <th>Criado em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @meus_agendamentos.each do |agendamento| %>
+              <tr>
+                <td><%= agendamento.id %></td>
+                <td><%= agendamento.nome_colaborador %></td>
+                <td><%= agendamento.nome_tipo_consulta %></td>
+                <td><%= l(agendamento.data_preferencia, format: :short) %></td>
+                <td>
+                  <span class="badge bg-primary">Aguardando</span>
+                </td>
+                <td><%= l(agendamento.created_at, format: :short) %></td>
+                <td>
+                  <%= link_to 'Ver', solicitante_agendamento_path(agendamento), class: 'btn btn-sm btn-info' %>
+                  <%= link_to 'Editar', edit_solicitante_agendamento_path(agendamento), class: 'btn btn-sm btn-warning' %>
+                  <%= link_to 'Remover', solicitante_agendamento_path(agendamento), 
+                              method: :delete, 
+                              data: { confirm: 'Tem certeza que deseja remover este agendamento?' },
+                              class: 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="card">
+        <div class="card-body text-center">
+          <p class="text-muted">Você ainda não possui agendamentos.</p>
+          <%= link_to 'Criar Primeiro Agendamento', new_solicitante_agendamento_path, class: 'btn btn-success' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

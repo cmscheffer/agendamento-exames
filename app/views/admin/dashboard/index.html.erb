@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12">
+    <h1>Dashboard Administrativo</h1>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-4">
+    <div class="card text-white bg-primary">
+      <div class="card-body">
+        <h5 class="card-title">Total de Solicitantes</h5>
+        <h2 class="card-text"><%= @total_solicitantes %></h2>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card text-white bg-success">
+      <div class="card-body">
+        <h5 class="card-title">Total de Agendamentos</h5>
+        <h2 class="card-text"><%= @total_agendamentos %></h2>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card text-white bg-info">
+      <div class="card-body">
+        <h5 class="card-title">Agendamentos Recentes</h5>
+        <h2 class="card-text"><%= @agendamentos_recentes.count %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Agendamentos Recentes</h5>
+      </div>
+      <div class="card-body">
+        <% if @agendamentos_recentes.any? %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Solicitante</th>
+                <th>Colaborador</th>
+                <th>Tipo</th>
+                <th>Data Preferência</th>
+                <th>Criado em</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @agendamentos_recentes.each do |agendamento| %>
+                <tr>
+                  <td><%= agendamento.id %></td>
+                  <td><%= agendamento.solicitante.nome %></td>
+                  <td><%= agendamento.nome_colaborador %></td>
+                  <td><%= agendamento.nome_tipo_consulta %></td>
+                  <td><%= l(agendamento.data_preferencia, format: :short) %></td>
+                  <td><%= l(agendamento.created_at, format: :short) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="text-muted">Nenhum agendamento recente.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
