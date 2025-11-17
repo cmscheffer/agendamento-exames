@@ -1,4 +1,4 @@
-# README - Sistema de Agendamento de Exames Ocupacionais
+# Sistema de Agendamento de Exames Ocupacionais
 
 ## Descrição
 Sistema web Ruby on Rails para gestão de agendamentos de exames ocupacionais, com autenticação, perfis de usuário (admin/solicitante) e envio de email.
@@ -29,8 +29,8 @@ Sistema web Ruby on Rails para gestão de agendamentos de exames ocupacionais, c
 
 1. Clone o repositório
 ```bash
-git clone [url-do-repositorio]
-cd sistema-agendamento-exames
+git clone https://github.com/seu-usuario/solicitacao-agendamento.git
+cd solicitacao-agendamento
 ```
 
 2. Instale as dependências
@@ -93,7 +93,22 @@ admin_email: admin@empresa.com.br
 ### Agendamento
 - Dados completos do agendamento
 - Relacionamentos com solicitante, unidade, cnpj
-- Tipo de consulta (enum)
+- Tipo de consulta (enum: admissional, demissional, periodico, retorno_trabalho, mudanca_funcao, outro)
+
+## Campos do Formulário de Agendamento
+- Cidade do agendamento
+- Unidade responsável (dropdown)
+- CNPJ (dropdown)
+- Nome completo do colaborador
+- Data de nascimento
+- CPF do colaborador (com validação)
+- Nº CCU - Cliente
+- Função
+- Tipo de consulta (radio buttons)
+- Outro tipo (campo texto quando selecionado "outro")
+- Matrícula (com opção "Não foi registrada ainda")
+- Data de preferência para agendamento
+- Observações
 
 ## Rotas Principais
 
@@ -135,3 +150,6 @@ rspec
 
 ## Licença
 Este projeto está sob a licença MIT.
+
+## Autor
+Seu Nome - seu.email@empresa.com
